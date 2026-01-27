@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { ContactForm } from "@/components/ContactForm";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { FloatingInstagram } from "@/components/FloatingInstagram";
 import { PencilRuler, Medal, MapPin, Clock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -25,6 +26,7 @@ export default function Home() {
     <div className="min-h-screen bg-background overflow-x-hidden font-body selection:bg-primary/30">
       <Navigation />
       <FloatingWhatsApp />
+      <FloatingInstagram />
 
       {/* HERO SECTION */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20">
