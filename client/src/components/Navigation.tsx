@@ -34,15 +34,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollToSection("hero")}>
-           <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-             <span className="text-secondary font-display font-black text-xl">C</span>
-           </div>
-           <span className={cn(
-             "font-display font-bold text-xl tracking-wide",
-             "text-white"
-           )}>
-             CRIART
-           </span>
+           <img src="/assets/logo.jpg" alt="Criart Logo" className="h-10 w-auto rounded-md object-contain" />
         </div>
 
         {/* Desktop Links */}
