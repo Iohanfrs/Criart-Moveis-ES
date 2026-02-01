@@ -234,7 +234,7 @@ export default function Home() {
                 images: [
                   { src: "/assets/gallery-kitchen.jpg", title: "Cozinha Gourmet Luxo" },
                   { src: "/assets/portfolio/kitchen_1.jpg", title: "Cozinha Integrada" },
-                  { src: "/assets/portfolio/kitchen_2.jpg", title: "Cozinha Minimalista" },
+                  { src: "/assets/portfolio/kitchen_minimalist.jpg", title: "Cozinha Minimalista" },
                   { src: "/assets/portfolio/kitchen_3.jpg", title: "Área Gourmet" }
                 ]
               },
@@ -251,7 +251,7 @@ export default function Home() {
                 id: "theaters",
                 images: [
                   { src: "/assets/gallery-tv-unit.jpg", title: "Painel Home Theater" },
-                  { src: "/assets/portfolio/theater_1.jpg", title: "Sala de Estar Moderna" },
+                  { src: "/assets/portfolio/theater_modern.jpg", title: "Sala de Estar Moderna" },
                   { src: "/assets/portfolio/theater_2.jpg", title: "Móvel para TV" },
                   { src: "/assets/portfolio/theater_3.jpg", title: "Ambiente Corporativo" }
                 ]
