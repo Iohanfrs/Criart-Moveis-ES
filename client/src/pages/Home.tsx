@@ -3,7 +3,9 @@ import { ContactForm } from "@/components/ContactForm";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { FloatingInstagram } from "@/components/FloatingInstagram";
 import { PencilRuler, Medal, MapPin, Clock, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Animation variants
 const fadeIn = {
@@ -217,49 +219,73 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Tabs defaultValue="kitchens" className="w-full">
+            <div className="flex justify-center mb-10">
+              <TabsList className="bg-white border border-gray-200 p-1 h-auto rounded-full shadow-sm">
+                <TabsTrigger value="kitchens" className="rounded-full px-8 py-3 data-[state=active]:bg-primary data-[state=active]:text-secondary font-bold">Cozinhas</TabsTrigger>
+                <TabsTrigger value="wardrobes" className="rounded-full px-8 py-3 data-[state=active]:bg-primary data-[state=active]:text-secondary font-bold">Dormitórios</TabsTrigger>
+                <TabsTrigger value="theaters" className="rounded-full px-8 py-3 data-[state=active]:bg-primary data-[state=active]:text-secondary font-bold">Salas</TabsTrigger>
+              </TabsList>
+            </div>
+
             {[
-              { 
-                // modern walk in wardrobe closet
-                src: "/assets/gallery-wardrobe.jpg", 
-                title: "Closets & Quartos", 
-                category: "Residencial" 
+              {
+                id: "kitchens",
+                images: [
+                  { src: "/assets/gallery-kitchen.jpg", title: "Cozinha Gourmet Luxo" },
+                  { src: "/assets/portfolio/kitchen_1.jpg", title: "Cozinha Integrada" },
+                  { src: "/assets/portfolio/kitchen_2.jpg", title: "Cozinha Minimalista" },
+                  { src: "/assets/portfolio/kitchen_3.jpg", title: "Área Gourmet" }
+                ]
               },
-              { 
-                // modern tv unit living room
-                src: "/assets/gallery-tv-unit.jpg", 
-                title: "Home Theaters", 
-                category: "Sala de Estar" 
+              {
+                id: "wardrobes",
+                images: [
+                  { src: "/assets/gallery-wardrobe.jpg", title: "Closet Master" },
+                  { src: "/assets/portfolio/closet_1.jpg", title: "Dormitório Casal" },
+                  { src: "/assets/portfolio/closet_2.jpg", title: "Quarto Planejado" },
+                  { src: "/assets/portfolio/closet_3.jpg", title: "Closet Funcional" }
+                ]
               },
-              { 
-                // luxury white kitchen cabinets
-                src: "/assets/gallery-kitchen.jpg", 
-                title: "Cozinhas Planejadas", 
-                category: "Gourmet" 
+              {
+                id: "theaters",
+                images: [
+                  { src: "/assets/gallery-tv-unit.jpg", title: "Painel Home Theater" },
+                  { src: "/assets/portfolio/theater_1.jpg", title: "Sala de Estar Moderna" },
+                  { src: "/assets/portfolio/theater_2.jpg", title: "Móvel para TV" },
+                  { src: "/assets/portfolio/theater_3.jpg", title: "Ambiente Corporativo" }
+                ]
               }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.2 }}
-                className="group relative h-96 rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-              >
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10" />
-                <img 
-                  src={item.src} 
-                  alt={item.title} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                />
-                <div className="absolute bottom-0 left-0 p-8 z-20 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="text-primary font-bold uppercase tracking-wider text-xs mb-2 block opacity-0 group-hover:opacity-100 transition-opacity delay-100">{item.category}</span>
-                  <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
-                  <div className="h-1 w-0 bg-primary group-hover:w-16 transition-all duration-500" />
-                </div>
-              </motion.div>
+            ].map((tab) => (
+              <TabsContent key={tab.id} value={tab.id}>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
+                  {tab.images.map((img, idx) => (
+                    <motion.div
+                      key={idx}
+                      whileHover={{ y: -10 }}
+                      className="group relative h-80 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500"
+                    >
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10" />
+                      <img 
+                        src={img.src} 
+                        alt={img.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      />
+                      <div className="absolute bottom-0 left-0 p-6 z-20 w-full translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 className="text-xl font-bold text-white mb-2">{img.title}</h3>
+                        <div className="h-1 w-0 bg-primary group-hover:w-12 transition-all duration-500" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </TabsContent>
             ))}
-          </div>
+          </Tabs>
         </div>
       </section>
 
