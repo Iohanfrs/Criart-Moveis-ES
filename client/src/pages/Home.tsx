@@ -337,8 +337,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
-               <img src="/assets/logo.jpg" alt="Criart Logo" className="h-8 w-auto rounded-sm object-contain brightness-0 invert" />
-               <span className="font-display font-bold text-lg tracking-wide">CRIART</span>
+               <img src="/assets/logo_footer.jpg" alt="Criart Logo" className="h-12 w-auto rounded-md object-contain" />
             </div>
             
             <p className="text-gray-400 text-sm text-center md:text-right">
