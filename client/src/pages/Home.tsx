@@ -81,17 +81,6 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50"
-        >
-          <span className="text-xs uppercase tracking-widest">Role para baixo</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
-        </motion.div>
       </section>
 
       {/* ABOUT SECTION */}
@@ -253,7 +242,7 @@ export default function Home() {
                   { src: "/assets/gallery-tv-unit.jpg", title: "Painel Home Theater" },
                   { src: "/assets/portfolio/theater_modern.jpg", title: "Sala de Estar Moderna" },
                   { src: "/assets/portfolio/theater_2.jpg", title: "Móvel para TV" },
-                  { src: "/assets/portfolio/theater_3.jpg", title: "Ambiente Corporativo" }
+                  { src: "/assets/portfolio/corporate_new.jpg", title: "Ambiente Corporativo" }
                 ]
               }
             ].map((tab) => (
