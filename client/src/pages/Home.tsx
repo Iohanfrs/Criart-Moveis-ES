@@ -230,8 +230,8 @@ export default function Home() {
               {
                 id: "wardrobes",
                 images: [
-                  { src: "/assets/gallery-wardrobe.jpg", title: "Closet Master" },
-                  { src: "/assets/portfolio/closet_1.jpg", title: "Dormitório Casal" },
+                  { src: "/assets/gallery-wardrobe.jpg", title: "Dormitório Casal" },
+                  { src: "/assets/portfolio/closet_1.jpg", title: "Closet Master" },
                   { src: "/assets/portfolio/closet_2.jpg", title: "Quarto Planejado" },
                   { src: "/assets/portfolio/bedroom_new.jpg", title: "Dormitório Planejado" }
                 ]
