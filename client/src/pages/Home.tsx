@@ -233,7 +233,7 @@ export default function Home() {
                   { src: "/assets/gallery-wardrobe.jpg", title: "Dormitório Casal" },
                   { src: "/assets/portfolio/closet_1.jpg", title: "Closet Master" },
                   { src: "/assets/portfolio/quarto_planejado.png", title: "Quarto Planejado" },
-                  { src: "/assets/portfolio/bedroom_suite.jpg", title: "Suíte Premium" }
+                  { src: "/assets/portfolio/kids_room.avif", title: "Quarto Infantil" }
                 ]
               },
               {
