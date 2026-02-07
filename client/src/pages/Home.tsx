@@ -241,7 +241,7 @@ export default function Home() {
                 images: [
                   { src: "/assets/gallery-tv-unit.jpg", title: "Painel Home Theater" },
                   { src: "/assets/portfolio/theater_modern.jpg", title: "Sala de Estar Moderna" },
-                  { src: "/assets/portfolio/theater_2.jpg", title: "Móvel para TV" },
+                  { src: "/assets/portfolio/tv_unit_new.jpg", title: "Móvel para TV" },
                   { src: "/assets/portfolio/corporate_new.jpg", title: "Ambiente Corporativo" }
                 ]
               }
