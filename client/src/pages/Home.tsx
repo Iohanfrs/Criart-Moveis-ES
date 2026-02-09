@@ -2,10 +2,11 @@ import { Navigation } from "@/components/Navigation";
 import { ContactForm } from "@/components/ContactForm";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { FloatingInstagram } from "@/components/FloatingInstagram";
-import { PencilRuler, Medal, MapPin, Clock, ArrowRight } from "lucide-react";
+import { PencilRuler, Medal, MapPin, Clock, ArrowRight, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 // Animation variants
 const fadeIn = {
@@ -23,7 +24,116 @@ const staggerContainer = {
   }
 };
 
+interface PortfolioItem {
+  src: string;
+  title: string;
+  moreImages: string[];
+}
+
+interface PortfolioTab {
+  id: string;
+  images: PortfolioItem[];
+}
+
 export default function Home() {
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const portfolioData: PortfolioTab[] = [
+    {
+      id: "kitchens",
+      images: [
+        { 
+          src: "/assets/gallery-kitchen.jpg", 
+          title: "Cozinha Gourmet Luxo",
+          moreImages: ["/assets/gallery-kitchen.jpg", "/assets/portfolio/kitchen_more_1.jpg", "/assets/portfolio/kitchen_more_2.jpg", "/assets/portfolio/kitchen_more_3.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/kitchen_1.jpg", 
+          title: "Cozinha Integrada",
+          moreImages: ["/assets/portfolio/kitchen_1.jpg", "/assets/portfolio/kitchen_more_2.jpg", "/assets/portfolio/kitchen_more_3.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/kitchen_minimalist.jpg", 
+          title: "Cozinha Minimalista",
+          moreImages: ["/assets/portfolio/kitchen_minimalist.jpg", "/assets/portfolio/kitchen_more_1.jpg", "/assets/portfolio/kitchen_more_2.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/kitchen_3.jpg", 
+          title: "Área Gourmet",
+          moreImages: ["/assets/portfolio/kitchen_3.jpg", "/assets/portfolio/kitchen_more_3.jpg", "/assets/portfolio/kitchen_more_1.jpg"]
+        }
+      ]
+    },
+    {
+      id: "wardrobes",
+      images: [
+        { 
+          src: "/assets/portfolio/single_bedroom.jpg", 
+          title: "Quarto Solteiro",
+          moreImages: ["/assets/portfolio/single_bedroom.jpg", "/assets/portfolio/wardrobe_more_1.jpg", "/assets/portfolio/wardrobe_more_2.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/closet_1.jpg", 
+          title: "Closet Master",
+          moreImages: ["/assets/portfolio/closet_1.jpg", "/assets/portfolio/wardrobe_more_3.jpg", "/assets/portfolio/wardrobe_more_1.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/quarto_planejado.png", 
+          title: "Quarto Planejado",
+          moreImages: ["/assets/portfolio/quarto_planejado.png", "/assets/portfolio/wardrobe_more_2.jpg", "/assets/portfolio/wardrobe_more_3.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/kids_room.avif", 
+          title: "Quarto Infantil",
+          moreImages: ["/assets/portfolio/kids_room.avif", "/assets/portfolio/wardrobe_more_1.jpg", "/assets/portfolio/wardrobe_more_2.jpg"]
+        }
+      ]
+    },
+    {
+      id: "theaters",
+      images: [
+        { 
+          src: "/assets/gallery-tv-unit.jpg", 
+          title: "Painel Home Theater",
+          moreImages: ["/assets/gallery-tv-unit.jpg", "/assets/portfolio/living_more_1.jpg", "/assets/portfolio/living_more_2.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/living_room.jpg", 
+          title: "Sala de Estar",
+          moreImages: ["/assets/portfolio/living_room.jpg", "/assets/portfolio/living_more_3.jpg", "/assets/portfolio/living_more_1.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/tv_unit_new.jpg", 
+          title: "Móvel para TV",
+          moreImages: ["/assets/portfolio/tv_unit_new.jpg", "/assets/portfolio/living_more_2.jpg", "/assets/portfolio/living_more_3.jpg"]
+        },
+        { 
+          src: "/assets/portfolio/corporate_new.jpg", 
+          title: "Ambiente Corporativo",
+          moreImages: ["/assets/portfolio/corporate_new.jpg", "/assets/portfolio/corporate_more_1.jpg", "/assets/portfolio/corporate_more_2.jpg", "/assets/portfolio/corporate_more_3.jpg"]
+        }
+      ]
+    }
+  ];
+
+  const handleOpenLightbox = (item: PortfolioItem) => {
+    setSelectedItem(item);
+    setActiveImageIndex(0);
+  };
+
+  const nextImage = () => {
+    if (selectedItem) {
+      setActiveImageIndex((prev) => (prev + 1) % selectedItem.moreImages.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedItem) {
+      setActiveImageIndex((prev) => (prev - 1 + selectedItem.moreImages.length) % selectedItem.moreImages.length);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background overflow-x-hidden font-body selection:bg-primary/30">
       <Navigation />
@@ -213,35 +323,7 @@ export default function Home() {
               </TabsList>
             </div>
 
-            {[
-              {
-                id: "kitchens",
-                images: [
-                  { src: "/assets/gallery-kitchen.jpg", title: "Cozinha Gourmet Luxo" },
-                  { src: "/assets/portfolio/kitchen_1.jpg", title: "Cozinha Integrada" },
-                  { src: "/assets/portfolio/kitchen_minimalist.jpg", title: "Cozinha Minimalista" },
-                  { src: "/assets/portfolio/kitchen_3.jpg", title: "Área Gourmet" }
-                ]
-              },
-              {
-                id: "wardrobes",
-                images: [
-                  { src: "/assets/portfolio/single_bedroom.jpg", title: "Quarto Solteiro" },
-                  { src: "/assets/portfolio/closet_1.jpg", title: "Closet Master" },
-                  { src: "/assets/portfolio/quarto_planejado.png", title: "Quarto Planejado" },
-                  { src: "/assets/portfolio/kids_room.avif", title: "Quarto Infantil" }
-                ]
-              },
-              {
-                id: "theaters",
-                images: [
-                  { src: "/assets/gallery-tv-unit.jpg", title: "Painel Home Theater" },
-                  { src: "/assets/portfolio/living_room.jpg", title: "Sala de Estar" },
-                  { src: "/assets/portfolio/tv_unit_new.jpg", title: "Móvel para TV" },
-                  { src: "/assets/portfolio/corporate_new.jpg", title: "Ambiente Corporativo" }
-                ]
-              }
-            ].map((tab) => (
+            {portfolioData.map((tab) => (
               <TabsContent key={tab.id} value={tab.id}>
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
@@ -253,6 +335,7 @@ export default function Home() {
                     <motion.div
                       key={idx}
                       whileHover={{ y: -10 }}
+                      onClick={() => handleOpenLightbox(img)}
                       className="group relative h-80 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500"
                     >
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10" />
@@ -272,6 +355,60 @@ export default function Home() {
             ))}
           </Tabs>
         </div>
+
+        <Dialog open={!!selectedItem} onOpenChange={() => setSelectedItem(null)}>
+          <DialogContent className="max-w-5xl bg-secondary/95 backdrop-blur-xl border-white/10 p-0 overflow-hidden rounded-3xl">
+            <DialogTitle className="sr-only">{selectedItem?.title}</DialogTitle>
+            <div className="relative aspect-video flex items-center justify-center bg-black/40">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeImageIndex}
+                  src={selectedItem?.moreImages[activeImageIndex]}
+                  alt={selectedItem?.title}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-full h-full object-contain"
+                />
+              </AnimatePresence>
+
+              <button 
+                onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                className="absolute left-4 p-3 rounded-full bg-black/20 hover:bg-primary text-white transition-all backdrop-blur-sm z-20"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button 
+                onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                className="absolute right-4 p-3 rounded-full bg-black/20 hover:bg-primary text-white transition-all backdrop-blur-sm z-20"
+              >
+                <ChevronRight size={24} />
+              </button>
+
+              <button 
+                onClick={() => setSelectedItem(null)}
+                className="absolute top-4 right-4 p-2 rounded-full bg-black/20 hover:bg-red-500 text-white transition-all backdrop-blur-sm z-20"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 z-20">
+                {selectedItem?.moreImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={(e) => { e.stopPropagation(); setActiveImageIndex(idx); }}
+                    className={`h-1.5 transition-all rounded-full ${idx === activeImageIndex ? 'w-8 bg-primary' : 'w-2 bg-white/40'}`}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="p-6 bg-gradient-to-t from-black/80 to-transparent">
+              <h3 className="text-2xl font-bold text-white mb-2">{selectedItem?.title}</h3>
+              <p className="text-white/60">Exemplos de projetos realizados com excelência e acabamento impecável.</p>
+            </div>
+          </DialogContent>
+        </Dialog>
       </section>
       {/* CONTACT SECTION */}
       <section id="contato" className="py-24 bg-white relative">
