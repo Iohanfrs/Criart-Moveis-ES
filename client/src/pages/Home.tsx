@@ -1,8 +1,11 @@
 import { Navigation } from "@/components/Navigation";
 import { ContactForm } from "@/components/ContactForm";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
+import { FloatingInstagram } from "@/components/FloatingInstagram";
 import { PencilRuler, Medal, MapPin, Clock, ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Animation variants
 const fadeIn = {
@@ -25,7 +28,7 @@ export default function Home() {
     <div className="min-h-screen bg-background overflow-x-hidden font-body selection:bg-primary/30">
       <Navigation />
       <FloatingWhatsApp />
-
+      <FloatingInstagram />
       {/* HERO SECTION */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20">
         {/* Background Image with Overlay */}
@@ -77,19 +80,7 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50"
-        >
-          <span className="text-xs uppercase tracking-widest">Role para baixo</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
-        </motion.div>
       </section>
-
       {/* ABOUT SECTION */}
       <section id="sobre" className="py-24 bg-white">
         <div className="container mx-auto px-6">
@@ -132,7 +123,7 @@ export default function Home() {
                 </p>
                 <div className="pt-6 grid grid-cols-2 gap-8">
                   <div>
-                    <h3 className="text-4xl font-display font-bold text-primary mb-1">10+</h3>
+                    <h3 className="text-4xl font-display font-bold text-primary mb-1">30+</h3>
                     <p className="font-medium text-secondary">Anos de Experiência</p>
                   </div>
                   <div>
@@ -145,7 +136,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* BENEFITS SECTION */}
       <section id="beneficios" className="py-24 bg-secondary text-white relative overflow-hidden">
         {/* Abstract Background Shapes */}
@@ -201,7 +191,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* PORTFOLIO SECTION */}
       <section id="portfolio" className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
@@ -215,52 +204,75 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <Tabs defaultValue="kitchens" className="w-full">
+            <div className="flex justify-center mb-10">
+              <TabsList className="bg-white border border-gray-200 p-1 h-auto rounded-full shadow-sm">
+                <TabsTrigger value="kitchens" className="rounded-full px-8 py-3 data-[state=active]:bg-primary data-[state=active]:text-secondary font-bold">Cozinhas</TabsTrigger>
+                <TabsTrigger value="wardrobes" className="rounded-full px-8 py-3 data-[state=active]:bg-primary data-[state=active]:text-secondary font-bold">Dormitórios</TabsTrigger>
+                <TabsTrigger value="theaters" className="rounded-full px-8 py-3 data-[state=active]:bg-primary data-[state=active]:text-secondary font-bold">Salas</TabsTrigger>
+              </TabsList>
+            </div>
+
             {[
-              { 
-                // modern walk in wardrobe closet
-                src: "/assets/gallery-wardrobe.jpg", 
-                title: "Closets & Quartos", 
-                category: "Residencial" 
+              {
+                id: "kitchens",
+                images: [
+                  { src: "/assets/gallery-kitchen.jpg", title: "Cozinha Gourmet Luxo" },
+                  { src: "/assets/portfolio/kitchen_1.jpg", title: "Cozinha Integrada" },
+                  { src: "/assets/portfolio/kitchen_minimalist.jpg", title: "Cozinha Minimalista" },
+                  { src: "/assets/portfolio/kitchen_3.jpg", title: "Área Gourmet" }
+                ]
               },
-              { 
-                // modern tv unit living room
-                src: "/assets/gallery-tv-unit.jpg", 
-                title: "Home Theaters", 
-                category: "Sala de Estar" 
+              {
+                id: "wardrobes",
+                images: [
+                  { src: "/assets/portfolio/single_bedroom.jpg", title: "Quarto Solteiro" },
+                  { src: "/assets/portfolio/closet_1.jpg", title: "Closet Master" },
+                  { src: "/assets/portfolio/quarto_planejado.png", title: "Quarto Planejado" },
+                  { src: "/assets/portfolio/kids_room.avif", title: "Quarto Infantil" }
+                ]
               },
-              { 
-                // luxury white kitchen cabinets
-                src: "/assets/gallery-kitchen.jpg", 
-                title: "Cozinhas Planejadas", 
-                category: "Gourmet" 
+              {
+                id: "theaters",
+                images: [
+                  { src: "/assets/gallery-tv-unit.jpg", title: "Painel Home Theater" },
+                  { src: "/assets/portfolio/living_room.jpg", title: "Sala de Estar" },
+                  { src: "/assets/portfolio/tv_unit_new.jpg", title: "Móvel para TV" },
+                  { src: "/assets/portfolio/corporate_new.jpg", title: "Ambiente Corporativo" }
+                ]
               }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.2 }}
-                className="group relative h-96 rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
-              >
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10" />
-                <img 
-                  src={item.src} 
-                  alt={item.title} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                />
-                <div className="absolute bottom-0 left-0 p-8 z-20 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                  <span className="text-primary font-bold uppercase tracking-wider text-xs mb-2 block opacity-0 group-hover:opacity-100 transition-opacity delay-100">{item.category}</span>
-                  <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
-                  <div className="h-1 w-0 bg-primary group-hover:w-16 transition-all duration-500" />
-                </div>
-              </motion.div>
+            ].map((tab) => (
+              <TabsContent key={tab.id} value={tab.id}>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                >
+                  {tab.images.map((img, idx) => (
+                    <motion.div
+                      key={idx}
+                      whileHover={{ y: -10 }}
+                      className="group relative h-80 rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500"
+                    >
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors z-10" />
+                      <img 
+                        src={img.src} 
+                        alt={img.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      />
+                      <div className="absolute bottom-0 left-0 p-6 z-20 w-full translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                        <h3 className="text-xl font-bold text-white mb-2">{img.title}</h3>
+                        <div className="h-1 w-0 bg-primary group-hover:w-12 transition-all duration-500" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </TabsContent>
             ))}
-          </div>
+          </Tabs>
         </div>
       </section>
-
       {/* CONTACT SECTION */}
       <section id="contato" className="py-24 bg-white relative">
         <div className="container mx-auto px-6">
@@ -303,16 +315,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* FOOTER */}
       <footer className="bg-secondary py-12 text-white border-t border-white/10">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
-               <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center">
-                 <span className="text-secondary font-display font-black">C</span>
-               </div>
-               <span className="font-display font-bold text-lg tracking-wide">CRIART</span>
+               <img src="/assets/logo_footer.jpg" alt="Criart Logo" className="h-12 w-auto rounded-md object-contain" />
             </div>
             
             <p className="text-gray-400 text-sm text-center md:text-right">
