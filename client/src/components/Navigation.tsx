@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import CRIART_MOVEIS from "@assets/CRIART MOVEIS.png";
+
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -34,7 +36,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-2 cursor-pointer" onClick={() => scrollToSection("hero")}>
-           <img src="/assets/logo.jpg" alt="Criart Logo" className="h-10 w-auto rounded-md object-contain" />
+           <img src={CRIART_MOVEIS} alt="Criart Logo" className="h-10 w-auto rounded-md object-contain" />
         </div>
 
         {/* Desktop Links */}
@@ -64,7 +66,6 @@ export function Navigation() {
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
-
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-secondary/95 backdrop-blur-xl border-t border-white/10 p-6 flex flex-col gap-4 md:hidden shadow-2xl animate-in slide-in-from-top-5">

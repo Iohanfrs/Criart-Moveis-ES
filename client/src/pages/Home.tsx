@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import CRIART_MOVEIS from "@assets/CRIART MOVEIS.png";
+
 // Animation variants
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -320,7 +322,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
-               <img src="/assets/logo_footer.jpg" alt="Criart Logo" className="h-12 w-auto rounded-md object-contain" />
+               <img src={CRIART_MOVEIS} alt="Criart Logo" className="h-12 w-auto rounded-md object-contain" />
             </div>
             
             <p className="text-gray-400 text-sm text-center md:text-right">
